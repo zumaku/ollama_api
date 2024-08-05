@@ -6,7 +6,7 @@
 # https://github.com/ollama/ollama-python
 
 from ollama import Client
-client = Client(host='http://localhost:11434')
+client = Client(host='http://localhost:11434')  # IP Server di sini
 stream = client.chat(
   model='tinyllama',
   messages=[
@@ -20,3 +20,6 @@ stream = client.chat(
 
 for chunk in stream:
   print(chunk['message']['content'], end='', flush=True)
+
+# Report
+# Berhasil diakses dari komputer lain.
