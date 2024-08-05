@@ -1,19 +1,22 @@
 # Source:
+# https://pypi.org/project/ollama/
+# Pada bagian Costum client
+# ---------------------------------------
+# Gunakan juga struktur stream di sini:
 # https://github.com/ollama/ollama-python
 
-import ollama
-
-response = ollama.chat(
-    model='llama3',
-    messages=[{
+from ollama import Client
+client = Client(host='http://localhost:11434')
+stream = client.chat(
+  model='tinyllama',
+  messages=[
+    {
         'role': 'user',
-        'content': 'Tell me a joke?',
-    }],
-    stream=True,
+        'content': 'Why is the sky blue?',
+    },
+  ],
+  stream=True,
 )
 
-for chunk in response:
+for chunk in stream:
   print(chunk['message']['content'], end='', flush=True)
-
-
-# Tapi ini belum bisa diakses dari external computer :(
