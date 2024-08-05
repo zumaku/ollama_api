@@ -1,28 +1,16 @@
-# Artikel dari
-# https://dev.to/jayantaadhikary/using-the-ollama-api-to-run-llms-and-generate-responses-locally-18b7
+# Source:
+# https://github.com/ollama/ollama-python
 
-import requests
-import json
+import ollama
 
-url = "http://localhost:11434/api/generate"
+response = ollama.chat(
+    model='llama3',
+    messages=[{
+        'role': 'user',
+        'content': 'Tell me a joke?',
+    }],
+    stream=True,
+)
 
-header = {
-    "Content-Type": "application/json"
-}
-
-data = {
-    "model": "llama3",
-    "prompt": "Why is the sky blue?",
-    "stream": False
-}
-
-# response = requests.post(url, headers=header, data=json.dumps(data))
-response = requests.post(url, headers=header, json=data)
-
-if response.status_code == 200:
-    response_text = response.text
-    data = json.loads(response_text)
-    actual_response = data["response"]
-    print(actual_response)
-else:
-    print("Error:", response.status_code, response.text)
+for chunk in response:
+  print(chunk['message']['content'], end='', flush=True)
