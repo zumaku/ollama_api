@@ -14,3 +14,6 @@ response = ollama.chat(
 
 for chunk in response:
   print(chunk['message']['content'], end='', flush=True)
+
+
+# Tapi ini belum bisa diakses dari external computer :(
